@@ -1,5 +1,5 @@
 /* ========= PRODUCT INFORMATION  =========== */
-#define FW_REVISION 2
+#define FW_REVISION 3
 #define FW_NAME "Clock Counter Test"
 /* -------------------- */
 
@@ -16,14 +16,24 @@ extern "C" {
 }
 #endif
 
-unsigned long startClockCounter0 =0;
-unsigned long stopClockCounter0=0;
-unsigned long startClockCounter1 =0;
-unsigned long stopClockCounter1=0;
-unsigned long startClockCounter2 =0;
-unsigned long stopClockCounter2=0;
-unsigned long startClockCounter3 =0;
-unsigned long stopClockCounter3=0;
+unsigned long startClockCounter1us =0;
+unsigned long stopClockCounter1us=0;
+
+unsigned long startClockCounter2us =0;
+unsigned long stopClockCounter2us=0;
+
+unsigned long startClockCounter5us =0;
+unsigned long stopClockCounter5us=0;
+
+unsigned long startClockCounter10us =0;
+unsigned long stopClockCounter10us=0;
+
+unsigned long startClockCounter30us =0;
+unsigned long stopClockCounter30us =0;
+
+unsigned long startClockCounter100us =0;
+unsigned long stopClockCounter100us=0;
+
 unsigned long loopClockCounterStart=0;
 unsigned long loopClockCounterStop=0;
 unsigned long loopCounter=0;
@@ -55,33 +65,42 @@ void loop() {
   }else{
     if(loopCounter==TOTAL_LOOP){
     loopClockCounterStop = ESP.getCycleCount();
-    startClockCounter0 = ESP.getCycleCount();
-    delayMicroseconds(1);
-    stopClockCounter0 = ESP.getCycleCount();
-
-    startClockCounter1 = ESP.getCycleCount();
-    delayMicroseconds(10);
-    stopClockCounter1 = ESP.getCycleCount();
-
-    startClockCounter2 = ESP.getCycleCount();
-    delayMicroseconds(100);
-    stopClockCounter2 = ESP.getCycleCount();
-
-    startClockCounter3 = ESP.getCycleCount();
-    delayMicroseconds(1000);
-    stopClockCounter3 = ESP.getCycleCount();
-
-    Serial.print("clock count 1uS : ");
-    Serial.println(stopClockCounter0-startClockCounter0);
     
+    startClockCounter1us = ESP.getCycleCount();
+    delayMicroseconds(1);
+    stopClockCounter1us = ESP.getCycleCount();
+    Serial.print("clock count 1uS : ");
+    Serial.println(stopClockCounter1us-startClockCounter1us);
+
+    startClockCounter2us = ESP.getCycleCount();
+    delayMicroseconds(2);
+    stopClockCounter2us = ESP.getCycleCount();
+    Serial.print("clock count 2uS : ");
+    Serial.println(stopClockCounter2us-startClockCounter2us);
+
+     startClockCounter5us = ESP.getCycleCount();
+    delayMicroseconds(5);
+    stopClockCounter5us = ESP.getCycleCount();
+    Serial.print("clock count 5uS : ");
+    Serial.println(stopClockCounter5us-startClockCounter5us);
+
+    startClockCounter10us = ESP.getCycleCount();
+    delayMicroseconds(10);
+    stopClockCounter10us = ESP.getCycleCount();
     Serial.print("clock count 10uS : ");
-    Serial.println(stopClockCounter1-startClockCounter1);
+    Serial.println(stopClockCounter10us-startClockCounter10us);
 
-    Serial.print("clock count 100uS  : ");
-    Serial.println(stopClockCounter2-startClockCounter2);
+    startClockCounter30us = ESP.getCycleCount();
+    delayMicroseconds(30);
+    stopClockCounter30us = ESP.getCycleCount();
+    Serial.print("clock count 30uS : ");
+    Serial.println(stopClockCounter30us-startClockCounter30us);
 
-    Serial.print("clock count 1000uS : ");
-    Serial.println(stopClockCounter3-startClockCounter3);
+    startClockCounter100us = ESP.getCycleCount();
+    delayMicroseconds(100);
+    stopClockCounter100us = ESP.getCycleCount();
+    Serial.print("clock count 100us : ");
+    Serial.println(stopClockCounter100us-startClockCounter100us);
 
     unsigned long totalcycles = loopClockCounterStop-loopClockCounterStart;
     double cyclePerLoop = totalcycles/(double)TOTAL_LOOP;
